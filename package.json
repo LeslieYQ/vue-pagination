@@ -1,0 +1,41 @@
+{
+  "name": "vue-pagination",
+  "version": "0.1.0",
+  "description": "A pagination for Vue.js",
+  "main": "src/vue-pagination.js",
+  "scripts": {
+    "release": "bash ./build/release.sh"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LeslieYQ/vue-pagination.git"
+  },
+  "keywords": [
+    "vue",
+    "vuejs",
+    "pagination",
+    "mvvm"
+  ],
+  "author": {
+    "name": "LeslieYQ <yuqiu-1988@163.com>"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/LeslieYQ/vue-pagination/issues"
+  },
+  "homepage": "https://github.com/LeslieYQ/vue-pagination#readme",
+  "devDependencies": {
+    "babel-core": "^5.8.33",
+    "babel-loader": "^5.3.3",
+    "babel-runtime": "^5.8.29",
+    "css-loader": "^0.21.0",
+    "style-loader": "^0.13.0",
+    "vue": "^1.0.8",
+    "vue-html-loader": "^1.0.0",
+    "vue-loader": "^6.0.3",
+    "webpack": "^1.11.0"
+  },
+  "engines": {
+    "node": ">=5.2.0"
+  },
+}
