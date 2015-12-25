@@ -1,6 +1,11 @@
-import Page from './page.vue';
+import './page.css';
+import Page from './page.js';
+
 
 let Vue ;
+
+
+
 class Pagination {
 	constructor ({
 		pageSize = 10,
@@ -14,50 +19,33 @@ class Pagination {
 		},
 		pageSizeItems = [5,10,15,20],
 		showInfo = false,
-		showJump = false,
-		success = function(){
-
-		}
+		showJump = false
 	} = {}) {
-		
-		Vue.prototype.$ajaxOptions = {
+		this._options = {
 			pageSize: pageSize,
 			remote: remote,
 			pageSizeItems: pageSizeItems,
 			showJump: showJump,
-			showInfo: showInfo,
-			success: success
+			showInfo: showInfo
 		};
+		
+	}
+
+	init (){
+		Vue.prototype.$ajaxOptionsDefault = this._options;
+		if (typeof window !== 'undefined' && window.document) {
+  			//window.document.head.append();
+		}
+		Vue.component('pagination', Vue.extend(Page))
 	}
 }
 
 Pagination.install = function (externalVue){
 	Vue = externalVue;
-	let viewDef = {
-		twoWay: true,
-		bind () {
-			let PageVue = Vue.extend(Page);
-			let page = new PageVue({
-				data: {
-					pageData: this.vm[this.expression]
-				}
-			});
-			let self =this;
-			if (typeof window !== 'undefined' && window.jQuery) {
-				Vue.ajax = jQuery;
-				Vue.prototype.$ajax = jQuery;
-			}
-			page.$watch('pageData', function(val){
-				self.set(val);
-			})
-			page.$mount(this.el);
-		},
-		update (value) {
-			//console.log(this.twoWay);
-		}
+	if (typeof window !== 'undefined' && window.jQuery) {
+		Vue.ajax = jQuery;
+		Vue.prototype.$ajax = jQuery;
 	}	
-
-	externalVue.directive('page', viewDef)
 }
 
 if (typeof window !== 'undefined' && window.Vue) {

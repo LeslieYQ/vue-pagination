@@ -1,17 +1,55 @@
-/**
- * 
- * @authors yuqiu (yuqiu@luojilab.com)
- * @date    2015-12-24 19:44:04
- * @version $Id$
- */
+var fs = require('fs')
+var rollup = require('rollup')
+var uglify = require('uglify-js')
+var babel = require('rollup-plugin-babel')
+var postcss = require('rollup-plugin-postcss')
+var version = process.env.VERSION || require('../package.json').version
+var banner =
+  '/*!\n' +
+  ' * vue-pagination v' + version + '\n' +
+  ' * (c) ' + new Date().getFullYear() + ' Evan You\n' +
+  ' * Released under the MIT License.\n' +
+  ' */'
 
-var fs = require("fs")
-var browserify = require('browserify')
-var vueify = require('vueify')
-var babelify =require('babelify');
-
-browserify('src/main.js')
-  .transform(vueify)
-  .transform(babelify)
-  .bundle()
-  .pipe(fs.createWriteStream("bundle.js"))
+rollup.rollup({
+  entry: 'src/main.js',
+  plugins: [
+    postcss({
+      include: '**/*.css',
+      sourceMap: true,
+      plugins: [
+        require('postcss-nested')
+      ]
+    }),
+    babel({
+      exclude: 'node_modules/**',
+      sourceMap: true
+    })
+  ]
+}).then(function (bundle) {
+  bundle.write({
+    format: 'cjs',
+    dest: 'dist/vue-pagination.common.js'
+  }).then(function () {
+    console.log('built: dist/vue-pagination.common.js')
+  })
+  return bundle.write({
+    format: 'umd',
+    banner: banner,
+    moduleName: 'VuePagination',
+    sourceMap: true,
+    dest: 'dist/vue-pagination.js'
+  })
+}).then(function () {
+  console.log('built: ' + 'dist/vue-pagination.js')
+  fs.writeFile(
+    'dist/vue-pagination.min.js',
+    banner + '\n' + uglify.minify('dist/vue-pagination.js').code,
+    function (err) {
+      if (err) throw err
+      console.log('built: ' + 'dist/vue-pagination.min.js')
+    }
+  )
+}).catch(function (e) {
+  console.log(e)
+})

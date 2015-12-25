@@ -1,1 +1,226 @@
-!function e(t,n,a){function i(r,s){if(!n[r]){if(!t[r]){var u="function"==typeof require&&require;if(!s&&u)return u(r,!0);if(o)return o(r,!0);var p=new Error("Cannot find module '"+r+"'");throw p.code="MODULE_NOT_FOUND",p}var l=n[r]={exports:{}};t[r][0].call(l.exports,function(e){var n=t[r][1][e];return i(n?n:e)},l,l.exports,e,t,n,a)}return n[r].exports}for(var o="function"==typeof require&&require,r=0;r<a.length;r++)i(a[r]);return i}({1:[function(e,t,n){t.exports={"default":e("core-js/library/fn/object/assign"),__esModule:!0}},{"core-js/library/fn/object/assign":5}],2:[function(e,t,n){t.exports={"default":e("core-js/library/fn/object/define-property"),__esModule:!0}},{"core-js/library/fn/object/define-property":6}],3:[function(e,t,n){"use strict";n["default"]=function(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")},n.__esModule=!0},{}],4:[function(e,t,n){"use strict";function a(e){return e&&e.__esModule?e:{"default":e}}var i=e("babel-runtime/core-js/object/define-property"),o=a(i);n["default"]=function(e,t,n){return t in e?(0,o["default"])(e,t,{value:n,enumerable:!0,configurable:!0,writable:!0}):e[t]=n,e},n.__esModule=!0},{"babel-runtime/core-js/object/define-property":2}],5:[function(e,t,n){e("../../modules/es6.object.assign"),t.exports=e("../../modules/$.core").Object.assign},{"../../modules/$.core":9,"../../modules/es6.object.assign":19}],6:[function(e,t,n){var a=e("../../modules/$");t.exports=function(e,t,n){return a.setDesc(e,t,n)}},{"../../modules/$":16}],7:[function(e,t,n){t.exports=function(e){if("function"!=typeof e)throw TypeError(e+" is not a function!");return e}},{}],8:[function(e,t,n){var a={}.toString;t.exports=function(e){return a.call(e).slice(8,-1)}},{}],9:[function(e,t,n){var a=t.exports={version:"1.2.6"};"number"==typeof __e&&(__e=a)},{}],10:[function(e,t,n){var a=e("./$.a-function");t.exports=function(e,t,n){if(a(e),void 0===t)return e;switch(n){case 1:return function(n){return e.call(t,n)};case 2:return function(n,a){return e.call(t,n,a)};case 3:return function(n,a,i){return e.call(t,n,a,i)}}return function(){return e.apply(t,arguments)}}},{"./$.a-function":7}],11:[function(e,t,n){t.exports=function(e){if(void 0==e)throw TypeError("Can't call method on  "+e);return e}},{}],12:[function(e,t,n){var a=e("./$.global"),i=e("./$.core"),o=e("./$.ctx"),r="prototype",s=function(e,t,n){var u,p,l,c=e&s.F,f=e&s.G,g=e&s.S,d=e&s.P,m=e&s.B,h=e&s.W,b=f?i:i[t]||(i[t]={}),v=f?a:g?a[t]:(a[t]||{})[r];f&&(n=t);for(u in n)p=!c&&v&&u in v,p&&u in b||(l=p?v[u]:n[u],b[u]=f&&"function"!=typeof v[u]?n[u]:m&&p?o(l,a):h&&v[u]==l?function(e){var t=function(t){return this instanceof e?new e(t):e(t)};return t[r]=e[r],t}(l):d&&"function"==typeof l?o(Function.call,l):l,d&&((b[r]||(b[r]={}))[u]=l))};s.F=1,s.G=2,s.S=4,s.P=8,s.B=16,s.W=32,t.exports=s},{"./$.core":9,"./$.ctx":10,"./$.global":14}],13:[function(e,t,n){t.exports=function(e){try{return!!e()}catch(t){return!0}}},{}],14:[function(e,t,n){var a=t.exports="undefined"!=typeof window&&window.Math==Math?window:"undefined"!=typeof self&&self.Math==Math?self:Function("return this")();"number"==typeof __g&&(__g=a)},{}],15:[function(e,t,n){var a=e("./$.cof");t.exports=Object("z").propertyIsEnumerable(0)?Object:function(e){return"String"==a(e)?e.split(""):Object(e)}},{"./$.cof":8}],16:[function(e,t,n){var a=Object;t.exports={create:a.create,getProto:a.getPrototypeOf,isEnum:{}.propertyIsEnumerable,getDesc:a.getOwnPropertyDescriptor,setDesc:a.defineProperty,setDescs:a.defineProperties,getKeys:a.keys,getNames:a.getOwnPropertyNames,getSymbols:a.getOwnPropertySymbols,each:[].forEach}},{}],17:[function(e,t,n){var a=e("./$"),i=e("./$.to-object"),o=e("./$.iobject");t.exports=e("./$.fails")(function(){var e=Object.assign,t={},n={},a=Symbol(),i="abcdefghijklmnopqrst";return t[a]=7,i.split("").forEach(function(e){n[e]=e}),7!=e({},t)[a]||Object.keys(e({},n)).join("")!=i})?function(e,t){for(var n=i(e),r=arguments,s=r.length,u=1,p=a.getKeys,l=a.getSymbols,c=a.isEnum;s>u;)for(var f,g=o(r[u++]),d=l?p(g).concat(l(g)):p(g),m=d.length,h=0;m>h;)c.call(g,f=d[h++])&&(n[f]=g[f]);return n}:Object.assign},{"./$":16,"./$.fails":13,"./$.iobject":15,"./$.to-object":18}],18:[function(e,t,n){var a=e("./$.defined");t.exports=function(e){return Object(a(e))}},{"./$.defined":11}],19:[function(e,t,n){var a=e("./$.export");a(a.S+a.F,"Object",{assign:e("./$.object-assign")})},{"./$.export":12,"./$.object-assign":17}],20:[function(e,t,n){var a=n.cache={};n.insert=function(e){if(!a[e]){a[e]=!0;var t=document.createElement("style");return t.setAttribute("type","text/css"),"textContent"in t?t.textContent=e:t.styleSheet.cssText=e,document.getElementsByTagName("head")[0].appendChild(t),t}}},{}],21:[function(e,t,n){"use strict";function a(e){return e&&e.__esModule?e:{"default":e}}Object.defineProperty(n,"__esModule",{value:!0});var i=e("babel-runtime/helpers/classCallCheck"),o=a(i),r=e("./page.vue"),s=a(r),u=void 0,p=function l(){var e=arguments.length<=0||void 0===arguments[0]?{}:arguments[0],t=e.pageSize,n=void 0===t?10:t,a=e.remote,i=void 0===a?{pageIndexName:"pageIndex",pageSizeName:"pageSize",params:{},url:"",totalName:"total",offset:0}:a,r=e.pageSizeItems,s=void 0===r?[5,10,15,20]:r,p=e.showInfo,c=void 0===p?!1:p,f=e.showJump,g=void 0===f?!1:f,d=e.success,m=void 0===d?function(){}:d;(0,o["default"])(this,l),u.prototype.$ajaxOptions={pageSize:n,remote:i,pageSizeItems:s,showJump:g,showInfo:c,success:m}};p.install=function(e){u=e;var t={twoWay:!0,bind:function(){var e=u.extend(s["default"]),t=new e({data:{pageData:this.vm[this.expression]}}),n=this;"undefined"!=typeof window&&window.jQuery&&(u.ajax=jQuery,u.prototype.$ajax=jQuery),t.$watch("pageData",function(e){n.set(e)}),t.$mount(this.el)},update:function(e){}};e.directive("page",t)},"undefined"!=typeof window&&window.Vue&&window.Vue.use(p),n["default"]=p},{"./page.vue":22,"babel-runtime/helpers/classCallCheck":3}],22:[function(e,t,n){function a(e){return e&&e.__esModule?e:{"default":e}}function i(e,t,n){var a,i=(a={},(0,p["default"])(a,l.remote.pageIndexName,e+l.remote.offset),(0,p["default"])(a,l.remote.pageSizeName,t),a);(0,s["default"])(i,l.remote.params);var r=this.$ajax||this.$http;r.get(l.remote.url,i).then(function(t){var a=t.data;n.pageData=a[l.remote.dataKey],n.pageLimit.total=a[l.remote.totalName],n.pageLimit.total%l.pageSize==0?n.pageLimit.max=Math.floor(n.pageLimit.total/l.pageSize):n.pageLimit.max=Math.floor(n.pageLimit.total/l.pageSize+1),o(e,n)},function(e){console.log(e)})}function o(e,t){for(var n=[],a=1;a<=t.pageLimit.max;a++)n.push(a);if(e<l.listNumber)t.pageList=n.slice(0,9);else if(e>t.pageLimit.max-l.listNumber+1)t.pageList=n.slice(-9);else{var i=e-1-Math.floor(l.listNumber/2);t.pageList=n.slice(i,i+l.listNumber)}}e("vueify-insert-css").insert(".lj-pagination{font-size:12px;text-align:center}.lj-pagination .lj-ibfo,.lj-pagination .lj-jump,.lj-pagination .lj-page{float:left}.lj-pagination .lj-page{margin:0}.lj-pagination .lj-page li{list-style:none;border:1px solid #e6e6e6;background:#f8f8f8;margin-right:10px;float:left}.lj-pagination .lj-page li.active{color:red}.lj-pagination .lj-page li span{height:18px;line-height:18px;padding:0 5px;display:inline-block;cursor:pointer}");Object.defineProperty(n,"__esModule",{value:!0});var r=e("babel-runtime/core-js/object/assign"),s=a(r),u=e("babel-runtime/helpers/defineProperty"),p=a(u),l={pageSize:10,remote:{pageIndexName:"pageIndex",pageSizeName:"pageSize",params:{},url:"",totalName:"total",offset:0},pageSizeItems:[5,10,15,20],showInfo:!1,showJump:!1,listNumber:7};n["default"]={data:function(){return{showJump:!1,showInfo:!1,pageJump:"",pageList:[1],pageStart:1,showList:!0,pageLimit:{min:1,max:10,total:1}}},ready:function(){(0,s["default"])(l,this.$ajaxOptions),i(1,10,this)},methods:{pagePath:function(e){this.pageStart=e,i(this.pageStart,l.pageSize,this.$ajax,this)},first:function(){this.pageStart=1},last:function(){this.pageStart=page.max},prev:function(){this.pageStart>page.pageLimit.min?this.pageStart--:this.pageStart=1},next:function(){this.pageStart<page.pageLimit.max?this.pageStart++:this.pageStart=page.max}}},t.exports.__esModule&&(t.exports=t.exports["default"]),("function"==typeof t.exports?t.exports.options:t.exports).template='<div class=lj-pagination><div class=lj-info v-if=showInfo></div><div class=lj-jump v-if=showJump><input v-model=pageJump> <span>搜索</span></div><ul class=lj-page v-if=showList><li @click=first v-show="pageStart != 1"><span>首页</span></li><li @click=prev v-show="pageStart != 1"><span>上一页</span></li><li :class="{\'active\': el == pageStart}" @click=pagePath(el) v-for="el in pageList"><span>{{el}}</span></li><li @click=next v-show="pageStart != pageLimit.max"><span>下一页</span></li><li @click=last v-show="pageStart != pageLimit.max"><span>尾页</span></li></ul></div>'},{"babel-runtime/core-js/object/assign":1,"babel-runtime/helpers/defineProperty":4,"vueify-insert-css":20}]},{},[21]);
+/*!
+ * vue-pagination v0.1.2
+ * (c) 2015 Evan You
+ * Released under the MIT License.
+ */
+(function (global, factory) {
+	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
+	typeof define === 'function' && define.amd ? define(factory) :
+	global.VuePagination = factory();
+}(this, function () { 'use strict';
+
+	function __$styleInject(css) {
+	  css = css || '';
+	  var head = document.head || document.getElementsByTagName('head')[0];
+	  var style = document.createElement('style');
+	  style.type = 'text/css';
+	  if (style.styleSheet){
+	    style.styleSheet.cssText = css;
+	  } else {
+	    style.appendChild(document.createTextNode(css));
+	  }
+	  head.appendChild(style);
+	}
+
+	var babelHelpers = {};
+
+	babelHelpers.createClass = (function () {
+	  function defineProperties(target, props) {
+	    for (var i = 0; i < props.length; i++) {
+	      var descriptor = props[i];
+	      descriptor.enumerable = descriptor.enumerable || false;
+	      descriptor.configurable = true;
+	      if ("value" in descriptor) descriptor.writable = true;
+	      Object.defineProperty(target, descriptor.key, descriptor);
+	    }
+	  }
+
+	  return function (Constructor, protoProps, staticProps) {
+	    if (protoProps) defineProperties(Constructor.prototype, protoProps);
+	    if (staticProps) defineProperties(Constructor, staticProps);
+	    return Constructor;
+	  };
+	})();
+
+	babelHelpers.defineProperty = function (obj, key, value) {
+	  if (key in obj) {
+	    Object.defineProperty(obj, key, {
+	      value: value,
+	      enumerable: true,
+	      configurable: true,
+	      writable: true
+	    });
+	  } else {
+	    obj[key] = value;
+	  }
+
+	  return obj;
+	};
+
+	babelHelpers.classCallCheck = function (instance, Constructor) {
+	  if (!(instance instanceof Constructor)) {
+	    throw new TypeError("Cannot call a class as a function");
+	  }
+	};
+	var optionsDefault = {
+		pageSize: 10,
+		remote: {
+			pageIndexName: 'pageIndex',
+			pageSizeName: 'pageSize',
+			params: {},
+			url: '',
+			totalName: 'total',
+			offset: 0
+		},
+		pageSizeItems: [5, 10, 15, 20],
+		showInfo: false,
+		showJump: false,
+		listNumber: 7
+	};
+
+	function getData(index, size, page) {
+		var _params;
+
+		var params = (_params = {}, babelHelpers.defineProperty(_params, optionsDefault.remote.pageIndexName, index + optionsDefault.remote.offset), babelHelpers.defineProperty(_params, optionsDefault.remote.pageSizeName, size), _params);
+		Object.assign(params, optionsDefault.remote.params);
+		var ajax = page.$ajax || page.$http;
+		ajax.get(optionsDefault.remote.url, params).then(function (res) {
+			var resData = res.data;
+			page.pageData = resData[optionsDefault.remote.dataKey];
+			page.pageLimit.total = resData[optionsDefault.remote.totalName];
+			if (page.pageLimit.total % optionsDefault.pageSize == 0) {
+				page.pageLimit.max = Math.floor(page.pageLimit.total / optionsDefault.pageSize);
+			} else {
+				page.pageLimit.max = Math.floor(page.pageLimit.total / optionsDefault.pageSize + 1);
+			}
+
+			pageListInit(index, page);
+		}, function (error) {
+			console.log(error);
+		});
+	};
+
+	function pageListInit(now, page) {
+		var arr = [];
+		for (var i = 1; i <= page.pageLimit.max; i++) {
+			arr.push(i);
+		}
+		if (now < optionsDefault.listNumber) {
+			page.pageList = arr.slice(0, 9);
+		} else if (now > page.pageLimit.max - optionsDefault.listNumber + 1) {
+			page.pageList = arr.slice(-9);
+		} else {
+			var start = now - 1 - Math.floor(optionsDefault.listNumber / 2);
+			page.pageList = arr.slice(start, start + optionsDefault.listNumber);
+		}
+	};
+
+	var Page = {
+		replace: true,
+		inherit: false,
+		template: '<div class="lj-pagination"><div class="lj-info" v-if="showInfo"></div><div class="lj-jump" v-if="showJump"><input type="text" v-model="pageJump"/><span>搜索</span></div><ul class="lj-page" v-if="showList"><li @click="first" v-show="pageStart != 1"><span>首页</span></li><li @click="prev" v-show="pageStart != 1"><span>上一页</span></li><li :class="{\'active\': el == pageStart}" @click="pagePath(el)" v-for="el in pageList"><span>{{el}}</span></li><li @click="next" v-show="pageStart != pageLimit.max"><span>下一页</span></li><li @click="last" v-show="pageStart != pageLimit.max"><span>尾页</span></li></ul></div>',
+		data: function data() {
+			return {
+				showJump: false,
+				showInfo: false,
+				pageJump: '',
+				pageList: [1],
+				pageStart: 1,
+				showList: true,
+				pageLimit: {
+					min: 1,
+					max: 10,
+					total: 1
+				}
+			};
+		},
+		ready: function ready() {
+			console.log(this.$ajaxOptionsDefault);
+			Object.assign(optionsDefault, this.$ajaxOptionsDefault);
+			getData(1, 10, this);
+		},
+		methods: {
+			pagePath: function pagePath(page) {
+				this.pageStart = page;
+				getData(this.pageStart, optionsDefault.pageSize, this);
+			},
+			first: function first() {
+				this.pageStart = 1;
+			},
+			last: function last() {
+				this.pageStart = this.pageLimit.max;
+			},
+			prev: function prev() {
+				this.pageStart > this.pageLimit.min ? this.pageStart-- : this.pageStart = 1;
+			},
+			next: function next() {
+				this.pageStart < this.pageLimit.max ? this.pageStart++ : this.pageStart = this.max;
+			}
+		}
+	};
+
+	__$styleInject(".lj-pagination{\n\tfont-size: 12px;\n\ttext-align: center;\n}\n.lj-pagination .lj-ibfo,.lj-pagination .lj-jump,.lj-pagination .lj-page{\n\tfloat: left;\n}\n.lj-pagination .lj-page{\n\tmargin: 0;\n}\n.lj-pagination .lj-page li{\n\tlist-style: none;\n\tborder: 1px solid #e6e6e6;\n\tbackground: #f8f8f8;\n\tmargin-right: 10px;\n\tfloat: left;\n}\n.lj-pagination .lj-page li.active{\n\tcolor: red;\n}\n.lj-pagination .lj-page li span{\n\theight: 18px;\n\tline-height: 18px;\n\tpadding: 0 5px;\n\tdisplay: inline-block;\n\tcursor: pointer;\n}\n");
+
+	var Vue = undefined;
+
+	var Pagination = (function () {
+		function Pagination() {
+			var _ref = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+
+			var _ref$pageSize = _ref.pageSize;
+			var pageSize = _ref$pageSize === undefined ? 10 : _ref$pageSize;
+			var _ref$remote = _ref.remote;
+			var remote = _ref$remote === undefined ? {
+				pageIndexName: 'pageIndex',
+				pageSizeName: 'pageSize',
+				params: {},
+				url: '',
+				totalName: 'total',
+				offset: 0
+			} : _ref$remote;
+			var _ref$pageSizeItems = _ref.pageSizeItems;
+			var pageSizeItems = _ref$pageSizeItems === undefined ? [5, 10, 15, 20] : _ref$pageSizeItems;
+			var _ref$showInfo = _ref.showInfo;
+			var showInfo = _ref$showInfo === undefined ? false : _ref$showInfo;
+			var _ref$showJump = _ref.showJump;
+			var showJump = _ref$showJump === undefined ? false : _ref$showJump;
+			babelHelpers.classCallCheck(this, Pagination);
+
+			this._options = {
+				pageSize: pageSize,
+				remote: remote,
+				pageSizeItems: pageSizeItems,
+				showJump: showJump,
+				showInfo: showInfo
+			};
+		}
+
+		babelHelpers.createClass(Pagination, [{
+			key: 'init',
+			value: function init() {
+				Vue.prototype.$ajaxOptionsDefault = this._options;
+				if (typeof window !== 'undefined' && window.document) {
+					//window.document.head.append();
+				}
+				Vue.component('pagination', Vue.extend(Page));
+			}
+		}]);
+		return Pagination;
+	})();
+
+	Pagination.install = function (externalVue) {
+		Vue = externalVue;
+		if (typeof window !== 'undefined' && window.jQuery) {
+			Vue.ajax = jQuery;
+			Vue.prototype.$ajax = jQuery;
+		}
+	};
+
+	if (typeof window !== 'undefined' && window.Vue) {
+		window.Vue.use(Pagination);
+	}
+
+	return Pagination;
+
+}));
+//# sourceMappingURL=vue-pagination.js.map
