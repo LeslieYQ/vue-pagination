@@ -32,8 +32,7 @@ function getData(index, size, page) {
 		page.$dispatch('pagination-success', res);
 		pageListInit(index, page);
 	}, function(error) {
-		console.log(error);
-		page.$dispatch('pagination-error', res);
+		page.$dispatch('pagination-error', error);
 	})
 };
 
