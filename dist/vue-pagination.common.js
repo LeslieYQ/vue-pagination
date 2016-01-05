@@ -109,7 +109,7 @@ function pageListInit(now, page) {
 var Page = {
 	replace: true,
 	inherit: false,
-	template: '<div class="lj-pagination"><div class="lj-info" v-if="showInfo"></div><div class="lj-jump" v-if="showJump"><input type="text" v-model="pageJump"/><span>搜索</span></div><ul class="lj-page" v-if="showList"><li @click="first" v-show="pageStart != 1"><span>首页</span></li><li @click="prev" v-show="pageStart != 1"><span>上一页</span></li><li :class="{\'active\': el == pageStart}" @click="pagePath(el)" v-for="el in pageList"><span>{{el}}</span></li><li @click="next" v-show="pageStart != pageLimit.max"><span>下一页</span></li><li @click="last" v-show="pageStart != pageLimit.max"><span>尾页</span></li></ul></div>',
+	template: '<div class="lj-pagination"><div class="lj-info" v-if="showInfo"></div><div class="lj-jump" v-if="showJump"><input type="text" v-model="pageJump"/><span>search</span></div>' + '<ul class="lj-page" v-if="showList"><li @click="first" v-show="pageStart != 1"><span>first</span></li><li @click="prev" v-show="pageStart != 1" class="button"><span>Prev</span></li><li :class="{\'active\': el == pageStart}" @click="pagePath(el)" v-for="el in pageList"><span>{{el}}</span></li>' + '<li @click="next" v-show="pageStart != pageLimit.max" class="button"><span>Next</span></li><li @click="last" v-show="pageStart != pageLimit.max"><span>Last</span></li></ul></div>',
 	data: function data() {
 		return {
 			showJump: false,
@@ -137,20 +137,24 @@ var Page = {
 		},
 		first: function first() {
 			this.pageStart = 1;
+			getData(this.pageStart, optionsDefault.pageSize, this);
 		},
 		last: function last() {
 			this.pageStart = this.pageLimit.max;
+			getData(this.pageStart, optionsDefault.pageSize, this);
 		},
 		prev: function prev() {
 			this.pageStart > this.pageLimit.min ? this.pageStart-- : this.pageStart = 1;
+			getData(this.pageStart, optionsDefault.pageSize, this);
 		},
 		next: function next() {
 			this.pageStart < this.pageLimit.max ? this.pageStart++ : this.pageStart = this.max;
+			getData(this.pageStart, optionsDefault.pageSize, this);
 		}
 	}
 };
 
-__$styleInject(".lj-pagination{\n\tfont-size: 12px;\n\ttext-align: center;\n}\n.lj-pagination .lj-ibfo,.lj-pagination .lj-jump,.lj-pagination .lj-page{\n\tfloat: left;\n}\n.lj-pagination .lj-page{\n\tmargin: 0;\n}\n.lj-pagination .lj-page li{\n\tlist-style: none;\n\tborder: 1px solid #e6e6e6;\n\tbackground: #f8f8f8;\n\tmargin-right: 10px;\n\tfloat: left;\n}\n.lj-pagination .lj-page li.active{\n\tcolor: red;\n}\n.lj-pagination .lj-page li span{\n\theight: 18px;\n\tline-height: 18px;\n\tpadding: 0 5px;\n\tdisplay: inline-block;\n\tcursor: pointer;\n}\n");
+__$styleInject(".lj-pagination{\n\tmargin: 10px 0;\n\tcolor: #282F31;\n}\n\n.lj-page{\n\tborder: 1px solid #e6e6e6;\n\tborder-radius: 3px;\n\tdisplay: inline-block;\n}\n\n.lj-page:after{\n\tcontent: \" \";\n\tdisplay: table;\n\tclear: both;\n}\n\n\n.lj-page li{\n\tfloat: left;\n\tborder-right: 1px solid #e6e6e6;\n\tdisplay: inline-block;\n\tcursor: pointer;\n}\n\n.lj-page li:last-of-type{\n\tborder-right: none;\n}\n\n.lj-page li:hover{\n\tbackground: #00cff5;\n\tcolor:  white;\n}\n\n.lj-page li.active{\n\tbackground: #00cff5;\n\tcolor:  white;\n}\n\n.lj-page li span{\n\tpadding: 1em;\n\tdisplay: inline-block;\n}");
 
 var Vue = undefined;
 
@@ -191,7 +195,7 @@ var Pagination = (function () {
 		value: function init() {
 			Vue.prototype.$ajaxOptionsDefault = this._options;
 			if (typeof window !== 'undefined' && window.document) {
-				//window.document.head.append();
+				//require(__dirname + '/page.css')
 			}
 			Vue.component('pagination', Vue.extend(Page));
 		}

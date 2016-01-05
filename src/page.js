@@ -55,7 +55,9 @@ function pageListInit(now, page) {
 export default {
 	replace: true,
   	inherit: false,
-	template: '<div class="lj-pagination"><div class="lj-info" v-if="showInfo"></div><div class="lj-jump" v-if="showJump"><input type="text" v-model="pageJump"/><span>搜索</span></div><ul class="lj-page" v-if="showList"><li @click="first" v-show="pageStart != 1"><span>首页</span></li><li @click="prev" v-show="pageStart != 1"><span>上一页</span></li><li :class="{\'active\': el == pageStart}" @click="pagePath(el)" v-for="el in pageList"><span>{{el}}</span></li><li @click="next" v-show="pageStart != pageLimit.max"><span>下一页</span></li><li @click="last" v-show="pageStart != pageLimit.max"><span>尾页</span></li></ul></div>',
+	template: '<div class="lj-pagination"><div class="lj-info" v-if="showInfo"></div><div class="lj-jump" v-if="showJump"><input type="text" v-model="pageJump"/><span>search</span></div>'+
+	'<ul class="lj-page" v-if="showList"><li @click="first" v-show="pageStart != 1"><span>first</span></li><li @click="prev" v-show="pageStart != 1" class="button"><span>Prev</span></li><li :class="{\'active\': el == pageStart}" @click="pagePath(el)" v-for="el in pageList"><span>{{el}}</span></li>'+ 
+	'<li @click="next" v-show="pageStart != pageLimit.max" class="button"><span>Next</span></li><li @click="last" v-show="pageStart != pageLimit.max"><span>Last</span></li></ul></div>',
 	data: function() {
 		return {
 			showJump: false,
@@ -83,15 +85,19 @@ export default {
 		},
 		first: function() {
 			this.pageStart = 1;
+			getData(this.pageStart, optionsDefault.pageSize, this);
 		},
 		last: function() {
-			this.pageStart = this.pageLimit.max
+			this.pageStart = this.pageLimit.max;
+			getData(this.pageStart, optionsDefault.pageSize, this);
 		},
 		prev: function() {
 			this.pageStart > this.pageLimit.min ? this.pageStart-- : this.pageStart = 1;
+			getData(this.pageStart, optionsDefault.pageSize, this);
 		},
 		next: function() {
 			this.pageStart < this.pageLimit.max ? this.pageStart++ : this.pageStart = this.max;
+			getData(this.pageStart, optionsDefault.pageSize, this);
 		}
 	}
 }

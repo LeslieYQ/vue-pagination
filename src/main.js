@@ -1,10 +1,7 @@
-import './page.css';
-import Page from './page.js';
-
+import Page from './page.js'
+import './page.css'
 
 let Vue ;
-
-
 
 class Pagination {
 	constructor ({
@@ -34,7 +31,7 @@ class Pagination {
 	init (){
 		Vue.prototype.$ajaxOptionsDefault = this._options;
 		if (typeof window !== 'undefined' && window.document) {
-  			//window.document.head.append();
+  			//require(__dirname + '/page.css')
 		}
 		Vue.component('pagination', Vue.extend(Page))
 	}
