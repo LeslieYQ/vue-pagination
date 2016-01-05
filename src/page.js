@@ -22,17 +22,18 @@ function getData(index, size, page) {
 	let ajax = page.$ajax || page.$http;
 	ajax.get(optionsDefault.remote.url, params).then(function(res) {
 		var resData = res.data;
-		page.pageData = resData[optionsDefault.remote.dataKey]
+		//page.pageData = resData[optionsDefault.remote.dataKey]
 		page.pageLimit.total = resData[optionsDefault.remote.totalName];
 		if (page.pageLimit.total % optionsDefault.pageSize == 0) {
 			page.pageLimit.max = Math.floor(page.pageLimit.total / optionsDefault.pageSize);
 		} else {
 			page.pageLimit.max = Math.floor(page.pageLimit.total / optionsDefault.pageSize + 1);
 		}
-
+		page.$dispatch('pagination-success', res);
 		pageListInit(index, page);
 	}, function(error) {
 		console.log(error);
+		page.$dispatch('pagination-error', res);
 	})
 };
 
