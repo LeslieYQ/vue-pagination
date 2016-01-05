@@ -25,9 +25,9 @@ function getData(index, size, page) {
 		//page.pageData = resData[optionsDefault.remote.dataKey]
 		page.pageLimit.total = resData[optionsDefault.remote.totalName];
 		if (page.pageLimit.total % optionsDefault.pageSize == 0) {
-			page.pageLimit.max = Math.floor(page.pageLimit.total / optionsDefault.pageSize);
+			page.pageLimit.max = Math.floor(page.pageLimit.total / optionsDefault.pageSize) || 5;
 		} else {
-			page.pageLimit.max = Math.floor(page.pageLimit.total / optionsDefault.pageSize + 1);
+			page.pageLimit.max = Math.floor(page.pageLimit.total / optionsDefault.pageSize + 1) || 5;
 		}
 		page.$dispatch('pagination-success', res);
 		pageListInit(index, page);
