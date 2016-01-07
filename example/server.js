@@ -3,6 +3,8 @@ var webpack = require('webpack');
 var WebpackDevServer = require('webpack-dev-server');
 var config = require('./config/webpack.config');  
 
+var exec = require('child_process').exec; 
+
 // 当修改时，让 webpack 自动刷新页面
 for (entryPoint in config.entry) {
   config.entry[entryPoint].unshift("webpack-dev-server/client?http://localhost:9090", "webpack/hot/dev-server");
@@ -21,7 +23,7 @@ var rewriteUrl = function(replacePath) {
     };
 };
 
-var target = "http://mricle.com/";
+var target = "http://localhost:3030/";
 
 var proxy = [{
 	path: new RegExp("/api/(.*)"),
@@ -38,6 +40,12 @@ var app = new WebpackDevServer(webpack(config), {
   hot: true,
   debug: true
 });
+exec('node example/http.js',function(err,stdout,stderr){
+  if(err){
+    console.log(err);
+  }
+})
+
 
 app.listen(9090, '0.0.0.0', function (err, result) {
   console.log('http://localhost:9090');

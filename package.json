@@ -36,6 +36,7 @@
     "babel-runtime": "^5.8.0",
     "babel-preset-es2015-rollup": "^1.0.0",
     "css-loader": "^0.21.0",
+    "express": "~4.12.4",
     "uglify-js": "^2.5.0",
     "rollup": "^0.21.0",
     "rollup-plugin-babel": "^1.0.0",
