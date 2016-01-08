@@ -1,5 +1,5 @@
 /*!
- * vue-pagination v0.1.3
+ * vue-pagination v0.1.4
  * (c) 2016 Evan You
  * Released under the MIT License.
  */
