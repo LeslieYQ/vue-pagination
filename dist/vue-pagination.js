@@ -96,8 +96,7 @@
 			page.$dispatch('pagination-success', res);
 			pageListInit(index, page);
 		}, function (error) {
-			console.log(error);
-			page.$dispatch('pagination-error', res);
+			page.$dispatch('pagination-error', error);
 		});
 	};
 
@@ -164,7 +163,7 @@
 		}
 	};
 
-	__$styleInject(".lj-pagination{\n\tmargin: 10px 0;\n\tcolor: #282F31;\n}\n\n.lj-page{\n\tmargin: 0;\n\tborder: 1px solid #e6e6e6;\n\tborder-radius: 3px;\n\tdisplay: inline-block;\n}\n\n.lj-page:after{\n\tcontent: \" \";\n\tdisplay: table;\n\tclear: both;\n}\n\n\n.lj-page li{\n\tfloat: left;\n\tborder-right: 1px solid #e6e6e6;\n\tdisplay: inline-block;\n\tcursor: pointer;\n}\n\n.lj-page li:last-of-type{\n\tborder-right: none;\n}\n\n.lj-page li:hover{\n\tbackground: #00cff5;\n\tcolor:  white;\n}\n\n.lj-page li.active{\n\tbackground: #00cff5;\n\tcolor:  white;\n}\n\n.lj-page li span{\n\tpadding: 1em;\n\tdisplay: inline-block;\n}");
+	__$styleInject(".lj-pagination{\n\tmargin: 10px 0;\n\tcolor: #282F31;\n}\n\n.lj-page{\n\tmargin: 0;\n\tpadding: 0;\n\tborder: 1px solid #e6e6e6;\n\tborder-radius: 3px;\n\tdisplay: inline-block;\n}\n\n.lj-page:after{\n\tcontent: \" \";\n\tdisplay: table;\n\tclear: both;\n}\n\n\n.lj-page li{\n\tfloat: left;\n\tborder-right: 1px solid #e6e6e6;\n\tdisplay: inline-block;\n\tcursor: pointer;\n}\n\n.lj-page li:last-of-type{\n\tborder-right: none;\n}\n\n.lj-page li:hover{\n\tbackground: #00cff5;\n\tcolor:  white;\n}\n\n.lj-page li.active{\n\tbackground: #00cff5;\n\tcolor:  white;\n}\n\n.lj-page li span{\n\tpadding: 1em;\n\tdisplay: inline-block;\n}");
 
 	var Vue = undefined;
 
