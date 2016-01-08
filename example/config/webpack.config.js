@@ -2,7 +2,6 @@ var vue = require('vue-loader');
 var webpack = require('webpack');
 var path = require('path')
 
-console.log(path.join(__dirname, '../'));
 module.exports = {
   entry: {
     main : [ path.join(__dirname, '../main.js')]  // 用 [] 是为了在这里加入 webpack socket，实现自动刷新

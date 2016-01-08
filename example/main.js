@@ -9,7 +9,6 @@ import Vue from 'vue'
 import Resource from 'vue-resource'
 import Pagination from '../src/main.js'
 import Page from './components/page.vue'
-let el 
 Vue.use(Pagination);
 Vue.use(Resource);
 
@@ -29,7 +28,7 @@ let page = new Pagination({
 });
 
 page.init();
-el = new Vue({
+new Vue({
     el: 'body',
     data: {
         pageListData: []

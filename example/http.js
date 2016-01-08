@@ -11,7 +11,7 @@ app.get('/getData', function (req, res) {
   for(var i=1; i<=length ; i++){
     arry.push(10 *number + i);
   }
-  res.send({data: arry, totol: 102});
+  res.send({data: arry, total: 102});
 });
 
 // catch 404 and forward to error handler
