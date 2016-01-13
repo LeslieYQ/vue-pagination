@@ -3,6 +3,7 @@
 		<p>返回数据显示</p>
 		<span class="show" v-for="item in list">{{item}}</span>
 	</div>
+	<button type="button" @click="reset">reset</button>
 	<pagination></pagination>
 </template>
 <style>
@@ -17,6 +18,11 @@
 	 	data (){
 	 		return{
 	 			list:[1,2,3]
+	 		}
+	 	},
+	 	methods:{
+	 		reset(){
+	 			this.$page.restart();
 	 		}
 	 	},
 	 	events:{

@@ -36,6 +36,9 @@ new Vue({
    components:{
     page: Page
    },
+   ready(){
+    //console.log(this)
+   },
     methods: {
         loading () {
             this.pageListData = [1,2]

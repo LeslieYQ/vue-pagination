@@ -2,6 +2,7 @@ import Page from './page.js'
 import './page.css'
 
 let Vue ;
+let page ;
 
 class Pagination {
 	constructor ({
@@ -30,10 +31,16 @@ class Pagination {
 
 	init (){
 		Vue.prototype.$ajaxOptionsDefault = this._options;
+		Vue.prototype.$page = this;
 		if (typeof window !== 'undefined' && window.document) {
   			//require(__dirname + '/page.css')
 		}
-		Vue.component('pagination', Vue.extend(Page))
+		
+		Vue.component('pagination', Vue.extend(Page.pagination))
+	}
+
+	restart(){
+		Page.restart();
 	}
 }
 

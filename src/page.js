@@ -13,6 +13,7 @@ let optionsDefault = {
 	showJump: false,
 	listNumber: 7
 };
+let vueObj ;
 
 function getData(index, size, page) {
 	let params = {
@@ -52,7 +53,7 @@ function pageListInit(now, page) {
 	}
 };
 
-export default {
+let pagination = {
 	replace: true,
   	inherit: false,
 	template: '<div class="lj-pagination"><div class="lj-info" v-if="showInfo"></div><div class="lj-jump" v-if="showJump"><input type="text" v-model="pageJump"/><span>search</span></div>'+
@@ -74,9 +75,9 @@ export default {
 		}
 	},
 	ready: function() {
-		console.log(this.$ajaxOptionsDefault);
 		Object.assign(optionsDefault, this.$ajaxOptionsDefault);
 		getData(1, 10, this);
+		vueObj = this;
 	},
 	methods: {
 		pagePath: function(page) {
@@ -100,4 +101,14 @@ export default {
 			getData(this.pageStart, optionsDefault.pageSize, this);
 		}
 	}
+}
+
+let restart = function(){
+	vueObj.pageStart = 1;
+	getData(vueObj.pageStart, optionsDefault.pageSize, vueObj);
+}
+
+export default {
+	pagination: pagination,
+	restart: restart
 }
