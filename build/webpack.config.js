@@ -11,6 +11,12 @@ module.exports = {
     publicPath: '/static/',
     filename: '[name].js'
   },
+   resolve: {
+    extensions: ['', '.js', '.vue'],
+    alias: {
+      'src': path.resolve(__dirname, '../src')
+    }
+  },
   module: {
     loaders: [
       {

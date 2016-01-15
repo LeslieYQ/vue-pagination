@@ -1,7 +1,7 @@
 
 var webpack = require('webpack');
 var WebpackDevServer = require('webpack-dev-server');
-var config = require('./config/webpack.config');  
+var config = require('../build/webpack.config');  
 
 var exec = require('child_process').exec; 
 
