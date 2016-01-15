@@ -4,7 +4,7 @@ var path = require('path')
 
 module.exports = {
   entry: {
-    main : [ path.join(__dirname, '../main.js')]  // 用 [] 是为了在这里加入 webpack socket，实现自动刷新
+    main : ['./example/main.js']  // 用 [] 是为了在这里加入 webpack socket，实现自动刷新
   },
   output: {
     path: __dirname + '/static',
