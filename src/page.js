@@ -114,7 +114,6 @@ let pagination = {
 }
 
 let restart = function(name){
-	console.log(name, vueObj[name]);
 	let pageInstance = vueObj[name];
 	if(!pageInstance){
 		console.error('没有实例，检查你的参数,后面是所有实例集合', vueObj)

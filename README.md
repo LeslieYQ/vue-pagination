@@ -27,7 +27,7 @@ let page = new Pagination({
         pageIndexName: 'pageIndex',
         pageSizeName: 'pageSize',
         params: {},
-        url: '/api/getData',
+        url: '', //
         totalName: 'total',
         offset: -1,
         dataKey: 'data'
@@ -35,6 +35,7 @@ let page = new Pagination({
 });
 
 page.init();
+
 ```
 
 it's similar to the [jquery pagination](http://mricle.com/JqueryPagination/Demo), but not perfect。
@@ -42,7 +43,10 @@ it's similar to the [jquery pagination](http://mricle.com/JqueryPagination/Demo)
 ### Field
 
 ```
-<pagination></pagination>
+<span class="show" v-for="item in list">{{item}}</span>
+<button type="button" @click="reset">reset</button>
+<pagination :page-data.sync="list" url="/api/getData" name="first"></pagination>
+
 ```
 
 ### Event
@@ -56,21 +60,33 @@ export default{
 	 			list:[1,2,3]
 	 		}
 	 	},
-	 	events:{
-	        'pagination-success' : function(res){
-	            console.log(res);
-	            this.list = res.data.data;
-	        },
-	        'pagination-error': function(err){
-	        	console.log(err)
-	        }
-	    },
+	 	methods:{
+	 		reset(){
+	 			this.$page.restart('first');
+	 		}
+	 	}
 	 }
 ```
 
+### Methods
+
+#### restart
+
+#####Arguments
+
+* name: String | number
+
+The name can be either a String or an Object.
+
+If a String, it's pagination's prop.
+
+If a number, it's pagination's order.
+
+
+
 ### Todo
 
-* Add methods(reset, restart, setOptions ...)
+* Add methods(reset, setOptions ...)
 
 
 
