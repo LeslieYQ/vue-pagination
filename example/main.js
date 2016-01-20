@@ -20,7 +20,7 @@ let page = new Pagination({
         params: {
             query: 'test'
         },
-        url: '/api/getData',
+        url: '',
         totalName: 'total',
         offset: -1,
         dataKey: 'data'

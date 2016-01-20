@@ -13,49 +13,49 @@ let optionsDefault = {
 	showJump: false,
 	listNumber: 7
 };
-let vueObj ;
+let vueObj = {length: 0};
 
-function getData(index, size, page) {
+function getData(pageIndex) {
 	let params = {
-		[optionsDefault.remote.pageIndexName]: index + optionsDefault.remote.offset, [optionsDefault.remote.pageSizeName]: size
+		[this.$optionsDefault.remote.pageIndexName]: pageIndex + this.$optionsDefault.remote.offset, [this.$optionsDefault.remote.pageSizeName]: this.$optionsDefault.pageSize
 	};
-	Object.assign(params, optionsDefault.remote.params);
-	let ajax = page.$ajax || page.$http;
-	ajax.get(optionsDefault.remote.url, params).then(function(res) {
+	Object.assign(params, this.$optionsDefault.remote.params);
+	let ajax = this.$ajax || this.$http;
+	ajax.get(this.$optionsDefault.remote.url, params).then((res) => {
 		var resData = res.data;
-		//page.pageData = resData[optionsDefault.remote.dataKey]
-		page.pageLimit.total = resData[optionsDefault.remote.totalName];
-		if (page.pageLimit.total % optionsDefault.pageSize == 0) {
-			page.pageLimit.max = Math.floor(page.pageLimit.total / optionsDefault.pageSize) || 5;
+		this.pageData = this.$optionsDefault.remote.dataKey ? resData[this.$optionsDefault.remote.dataKey]: resData;
+		this.pageLimit.total = resData[this.$optionsDefault.remote.totalName];
+		if (this.pageLimit.total % this.$optionsDefault.pageSize == 0) {
+			this.pageLimit.max = Math.floor(this.pageLimit.total / this.$optionsDefault.pageSize) || 5;
 		} else {
-			page.pageLimit.max = Math.floor(page.pageLimit.total / optionsDefault.pageSize + 1) || 5;
+			this.pageLimit.max = Math.floor(this.pageLimit.total / this.$optionsDefault.pageSize + 1) || 5;
 		}
-		page.$dispatch('pagination-success', res);
-		pageListInit(index, page);
+		pageListInit.call(this,pageIndex)
 	}, function(error) {
-		page.$dispatch('pagination-error', error);
+		console.error(error)
 	})
 };
 
-function pageListInit(now, page) {
+function pageListInit(now) {
 	let arr = [];
-	for (let i = 1; i <= page.pageLimit.max; i++) {
+	for (let i = 1; i <= this.pageLimit.max; i++) {
 		arr.push(i)
 	}
-	if (now < optionsDefault.listNumber) {
-		page.pageList = arr.slice(0, 9);
+	if (now <this.$optionsDefault.listNumber) {
+		this.pageList = arr.slice(0, 9);
 
-	} else if (now > page.pageLimit.max - optionsDefault.listNumber + 1) {
-		page.pageList = arr.slice(-9);
+	} else if (now > this.pageLimit.max - optionsDefault.listNumber + 1) {
+		this.pageList = arr.slice(-9);
 	} else {
 		let start = now - 1 - Math.floor(optionsDefault.listNumber / 2);
-		page.pageList = arr.slice(start, start + optionsDefault.listNumber);
+		this.pageList = arr.slice(start, start + optionsDefault.listNumber);
 	}
 };
 
 let pagination = {
 	replace: true,
   	inherit: false,
+  	props:['pageData','url', 'name'],
 	template: '<div class="lj-pagination"><div class="lj-info" v-if="showInfo"></div><div class="lj-jump" v-if="showJump"><input type="text" v-model="pageJump"/><span>search</span></div>'+
 	'<ul class="lj-page" v-if="showList"><li @click="first" v-show="pageStart != 1"><span>first</span></li><li @click="prev" v-show="pageStart != 1" class="button"><span>Prev</span></li><li :class="{\'active\': el == pageStart}" @click="pagePath(el)" v-for="el in pageList"><span>{{el}}</span></li>'+ 
 	'<li @click="next" v-show="pageStart != pageLimit.max" class="button"><span>Next</span></li><li @click="last" v-show="pageStart != pageLimit.max"><span>Last</span></li></ul></div>',
@@ -75,37 +75,53 @@ let pagination = {
 		}
 	},
 	ready: function() {
-		Object.assign(optionsDefault, this.$ajaxOptionsDefault);
-		getData(1, 10, this);
-		vueObj = this;
+		this.$optionsDefault = {};
+		Object.assign(this.$optionsDefault,optionsDefault,this.$ajaxOptionsDefault);
+		if(this.url){
+			this.$optionsDefault.remote.url = this.url;
+		}
+		if(this.name){
+			vueObj[this.name] = this;
+			vueObj.length ++;
+		}else{
+			vueObj[vueObj.length] = this;
+			vueObj.length ++;
+		}
+		getData.call(this,1,10);
 	},
 	methods: {
-		pagePath: function(page) {
-			this.pageStart = page;
-			getData(this.pageStart, optionsDefault.pageSize, this);
+		pagePath(pageNumber) {
+			this.pageStart = pageNumber;
+			getData.call(this,this.pageStart);
 		},
-		first: function() {
+		first () {
 			this.pageStart = 1;
-			getData(this.pageStart, optionsDefault.pageSize, this);
+			getData.call(this,this.pageStart);
 		},
-		last: function() {
+		last() {
 			this.pageStart = this.pageLimit.max;
-			getData(this.pageStart, optionsDefault.pageSize, this);
+			getData.call(this,this.pageStart);
 		},
-		prev: function() {
+		prev() {
 			this.pageStart > this.pageLimit.min ? this.pageStart-- : this.pageStart = 1;
-			getData(this.pageStart, optionsDefault.pageSize, this);
+			getData.call(this,this.pageStart);
 		},
-		next: function() {
+		next() {
 			this.pageStart < this.pageLimit.max ? this.pageStart++ : this.pageStart = this.max;
-			getData(this.pageStart, optionsDefault.pageSize, this);
+			getData.call(this,this.pageStart, optionsDefault.pageSize);
 		}
 	}
 }
 
-let restart = function(){
-	vueObj.pageStart = 1;
-	getData(vueObj.pageStart, optionsDefault.pageSize, vueObj);
+let restart = function(name){
+	console.log(name, vueObj[name]);
+	let pageInstance = vueObj[name];
+	if(!pageInstance){
+		console.error('没有实例，检查你的参数,后面是所有实例集合', vueObj)
+		return;
+	}
+	pageInstance.pageStart = 1;
+	getData.call(pageInstance, pageInstance.pageStart);
 }
 
 export default {

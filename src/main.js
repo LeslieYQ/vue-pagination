@@ -26,7 +26,6 @@ class Pagination {
 			showJump: showJump,
 			showInfo: showInfo
 		};
-		
 	}
 
 	init (){
@@ -39,8 +38,8 @@ class Pagination {
 		Vue.component('pagination', Vue.extend(Page.pagination))
 	}
 
-	restart(){
-		Page.restart();
+	restart(name = 0){
+		Page.restart(name);
 	}
 }
 

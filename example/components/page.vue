@@ -4,7 +4,12 @@
 		<span class="show" v-for="item in list">{{item}}</span>
 	</div>
 	<button type="button" @click="reset">reset</button>
-	<pagination></pagination>
+	<pagination :page-data.sync="list" url="/api/getData" name="first"></pagination>
+	<div style="margin: 50px">
+		<p>返回数据显示</p>
+		<span class="show" v-for="item in list2">{{item}}</span>
+	</div>
+	<pagination :page-data.sync="list2" url="/api/getData" name="second"></pagination>
 </template>
 <style>
 	.show{
@@ -17,22 +22,14 @@
 	 export default{
 	 	data (){
 	 		return{
-	 			list:[1,2,3]
+	 			list:[1,2,3],
+	 			list2: []
 	 		}
 	 	},
 	 	methods:{
 	 		reset(){
-	 			this.$page.restart();
+	 			this.$page.restart('first');
 	 		}
-	 	},
-	 	events:{
-	        'pagination-success' : function(res){
-	            console.log(res);
-	            this.list = res.data.data;
-	        },
-	        'pagination-error': function(err){
-	        	console.log(err)
-	        }
-	    },
+	 	}
 	 }
 </script>
