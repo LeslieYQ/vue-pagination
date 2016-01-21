@@ -1,0 +1,12 @@
+run example
+
+{
+  "presets": ["es2015"],
+  "plugins": ["transform-runtime"],
+  "comments": false
+}
+
+//rollup build
+{
+  "presets": ["es2015-rollup"]
+}
