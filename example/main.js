@@ -27,7 +27,7 @@ let page = new Pagination({
     }
 });
 
-page.init();
+//page.init();
 new Vue({
     el: 'body',
     data: {

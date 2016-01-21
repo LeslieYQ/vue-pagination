@@ -59,7 +59,7 @@ let pagination = {
 	template: '<div class="lj-pagination"><div class="lj-info" v-if="showInfo"></div><div class="lj-jump" v-if="showJump"><input type="text" v-model="pageJump"/><span>search</span></div>'+
 	'<ul class="lj-page" v-if="showList"><li @click="first" v-show="pageStart != 1"><span>first</span></li><li @click="prev" v-show="pageStart != 1" class="button"><span>Prev</span></li><li :class="{\'active\': el == pageStart}" @click="pagePath(el)" v-for="el in pageList"><span>{{el}}</span></li>'+ 
 	'<li @click="next" v-show="pageStart != pageLimit.max" class="button"><span>Next</span></li><li @click="last" v-show="pageStart != pageLimit.max"><span>Last</span></li></ul></div>',
-	data: function() {
+	data() {
 		return {
 			showJump: false,
 			showInfo: false,
@@ -74,7 +74,7 @@ let pagination = {
 			}
 		}
 	},
-	ready: function() {
+	ready() {
 		this.$optionsDefault = {};
 		Object.assign(this.$optionsDefault,optionsDefault,this.$ajaxOptionsDefault);
 		if(this.url){
@@ -119,6 +119,28 @@ let restart = function(name){
 		console.error('没有实例，检查你的参数,后面是所有实例集合', vueObj)
 		return;
 	}
+	pageInstance.pageStart = 1;
+	getData.call(pageInstance, pageInstance.pageStart);
+}
+
+let reset = function(options, name){
+	let pageInstance = vueObj[name];
+	if(!pageInstance){
+		console.error('没有实例，检查你的参数,后面是所有实例集合', vueObj)
+		return;
+	}
+	Object.assign(pageInstance.$optionsDefault,options);
+	pageInstance.pageStart = 1;
+	getData.call(pageInstance, pageInstance.pageStart);
+}
+
+let setParams = function(params, name){
+	let pageInstance = vueObj[name];
+	if(!pageInstance){
+		console.error('没有实例，检查你的参数,后面是所有实例集合', vueObj)
+		return;
+	}
+	Object.assign(pageInstance.$optionsDefault.remote.params,params);
 	pageInstance.pageStart = 1;
 	getData.call(pageInstance, pageInstance.pageStart);
 }
