@@ -7,7 +7,7 @@ var version = process.env.VERSION || require('../package.json').version
 var banner =
   '/*!\n' +
   ' * vue-pagination v' + version + '\n' +
-  ' * (c) ' + new Date().getFullYear() + ' Evan You\n' +
+  ' * (c) ' + new Date().getFullYear() + 'Leslie Yu qiu\n' +
   ' * Released under the MIT License.\n' +
   ' */'
 
@@ -22,8 +22,7 @@ rollup.rollup({
       ]
     }),
     babel({
-      exclude: 'node_modules/**',
-      sourceMap: true
+      exclude: 'node_modules/**'
     })
   ]
 }).then(function (bundle) {
