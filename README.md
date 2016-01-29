@@ -1,3 +1,5 @@
+[中文](./chinese.md)
+
 # vue-pagination
 
 **Compatibility Note:** `vue-pagination` requires Vue.js 1.0.0+ 
