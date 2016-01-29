@@ -53,7 +53,6 @@ it's similar to the [jquery pagination](http://mricle.com/JqueryPagination/Demo)
 
 ### Event
 
-At present uses the callback function to handle the data returned.
 
 ```
 export default{
