@@ -1,5 +1,5 @@
 /*!
- * vue-pagination v0.2.0
+ * vue-pagination v0.3.0
  * (c) 2016Leslie Yu qiu
  * Released under the MIT License.
  */
@@ -154,6 +154,7 @@
 			}
 			getData.call(this, 1, 10);
 		},
+
 		methods: {
 			pagePath: function pagePath(pageNumber) {
 				this.pageStart = pageNumber;
@@ -196,6 +197,7 @@
 	__$styleInject(".lj-pagination{\n\tmargin: 10px 0;\n\tcolor: #282F31;\n}\n\n.lj-page{\n\tmargin: 0;\n\tpadding: 0;\n\tborder: 1px solid #e6e6e6;\n\tborder-radius: 3px;\n\tdisplay: inline-block;\n}\n\n.lj-page:after{\n\tcontent: \" \";\n\tdisplay: table;\n\tclear: both;\n}\n\n\n.lj-page li{\n\tfloat: left;\n\tborder-right: 1px solid #e6e6e6;\n\tdisplay: inline-block;\n\tcursor: pointer;\n}\n\n.lj-page li:last-of-type{\n\tborder-right: none;\n}\n\n.lj-page li:hover{\n\tbackground: #00cff5;\n\tcolor:  white;\n}\n\n.lj-page li.active{\n\tbackground: #00cff5;\n\tcolor:  white;\n}\n\n.lj-page li span{\n\tpadding: 1em;\n\tdisplay: inline-block;\n}");
 
 	var Vue = undefined;
+
 	var Pagination = function () {
 		function Pagination() {
 			var _ref = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
@@ -226,25 +228,25 @@
 				showJump: showJump,
 				showInfo: showInfo
 			};
+
+			Vue.prototype.$ajaxOptionsDefault = this._options;
+			Vue.prototype.$page = this;
+			Vue.component('pagination', Vue.extend(Page.pagination));
 		}
 
 		babelHelpers.createClass(Pagination, [{
-			key: 'init',
-			value: function init() {
-				Vue.prototype.$ajaxOptionsDefault = this._options;
-				Vue.prototype.$page = this;
-				if (typeof window !== 'undefined' && window.document) {
-					//require(__dirname + '/page.css')
-				}
-
-				Vue.component('pagination', Vue.extend(Page.pagination));
-			}
-		}, {
 			key: 'restart',
 			value: function restart() {
 				var name = arguments.length <= 0 || arguments[0] === undefined ? 0 : arguments[0];
 
 				Page.restart(name);
+			}
+		}, {
+			key: 'reset',
+			value: function reset(options) {
+				var name = arguments.length <= 1 || arguments[1] === undefined ? 0 : arguments[1];
+
+				Page.reset(options);
 			}
 		}]);
 		return Pagination;
