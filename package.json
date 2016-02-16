@@ -1,6 +1,6 @@
 {
   "name": "vue-pagination",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "A pagination for Vue.js",
   "main": "dist/vue-pagination.min.js",
   "scripts": {
