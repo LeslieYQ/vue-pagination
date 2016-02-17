@@ -1,5 +1,5 @@
 /*!
- * vue-pagination v0.3.0
+ * vue-pagination v0.3.1
  * (c) 2016Leslie Yu qiu
  * Released under the MIT License.
  */
@@ -63,6 +63,20 @@
 	  return obj;
 	};
 
+	babelHelpers.extends = Object.assign || function (target) {
+	  for (var i = 1; i < arguments.length; i++) {
+	    var source = arguments[i];
+
+	    for (var key in source) {
+	      if (Object.prototype.hasOwnProperty.call(source, key)) {
+	        target[key] = source[key];
+	      }
+	    }
+	  }
+
+	  return target;
+	};
+
 	babelHelpers;
 
 	var optionsDefault = {
@@ -87,7 +101,7 @@
 		    _this = this;
 
 		var params = (_params = {}, babelHelpers.defineProperty(_params, this.$optionsDefault.remote.pageIndexName, pageIndex + this.$optionsDefault.remote.offset), babelHelpers.defineProperty(_params, this.$optionsDefault.remote.pageSizeName, this.$optionsDefault.pageSize), _params);
-		Object.assign(params, this.$optionsDefault.remote.params);
+		babelHelpers.extends(params, this.$optionsDefault.remote.params);
 		var ajax = this.$ajax || this.$http;
 		ajax.get(this.$optionsDefault.remote.url, params).then(function (res) {
 			var resData = res.data;
@@ -141,7 +155,7 @@
 		},
 		ready: function ready() {
 			this.$optionsDefault = {};
-			Object.assign(this.$optionsDefault, optionsDefault, this.$ajaxOptionsDefault);
+			babelHelpers.extends(this.$optionsDefault, optionsDefault, this.$ajaxOptionsDefault);
 			if (this.url) {
 				this.$optionsDefault.remote.url = this.url;
 			}
