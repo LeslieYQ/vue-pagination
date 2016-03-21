@@ -3,7 +3,9 @@
 		<p>返回数据显示</p>
 		<span class="show" v-for="item in list">{{item}}</span>
 	</div>
-	<button type="button" @click="reset">reset</button>
+	<button type="button" @click="restart">restart</button>
+	<button type="button" @click="setParams">set params</button>
+	<button type="button" @click="reset">reset options</button>
 	<pagination :page-data.sync="list" url="/api/getData" name="first"></pagination>
 	<div style="margin: 50px">
 		<p>返回数据显示</p>
@@ -27,8 +29,28 @@
 	 		}
 	 	},
 	 	methods:{
-	 		reset(){
+	 		restart(){
 	 			this.$page.restart('first');
+	 		},
+	 		setParams(){
+	 			this.$page.setParams({
+	 				change: 1
+	 			}, 'first');
+	 		},
+	 		reset(){
+	 			this.$page.reset({
+	 				pageSize: 20,
+	 				remote: {
+			        pageIndexName: 'pageIndex',
+			        pageSizeName: 'pageSize',
+			        params: {
+			            query: 'test'
+			        },
+			        url: '',
+			        totalName: 'total',
+			        offset: -1,
+			        dataKey: 'data'
+			    }}, 'first');
 	 		}
 	 	}
 	 }

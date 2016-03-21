@@ -13,8 +13,8 @@ Vue.use(Pagination);
 Vue.use(Resource);
 
 let page = new Pagination({
+    pageSize: 10,
     remote: {
-        pageSize: 10,
         pageIndexName: 'pageIndex',
         pageSizeName: 'pageSize',
         params: {

@@ -37,7 +37,11 @@ class Pagination {
 	}
 
 	reset(options, name = 0){
-		Page.reset(options)
+		Page.reset(options, name)
+	}
+
+	setParams(params, name = 0){
+		Page.setParams(params, name)
 	}
 }
 
