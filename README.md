@@ -24,8 +24,8 @@ Vue.use(Pagination);
 
 ```
 let page = new Pagination({
+	pageSize: 10,
     remote: {
-        pageSize: 10,
         pageIndexName: 'pageIndex',
         pageSizeName: 'pageSize',
         params: {},
@@ -83,6 +83,67 @@ If a String, it's pagination's prop.
 
 If a number, it's pagination's order.
 
+````
+<pagination :page-data.sync="list" url="/api/getData" name="first"></pagination>
+````
+
+
+#### reset
+
+##### 参数
+
+* options: Object
+
+* name: String | number
+
+This's replace not extend, means that pagination will use new options you give;
+
+options like this:
+
+````
+{
+	pageSize: 10,
+    remote: {
+        pageIndexName: 'pageIndex',
+        pageSizeName: 'pageSize',
+        params: {},
+        url: '', //
+        totalName: 'total',
+        offset: -1,
+        dataKey: 'data'
+    }
+}
+````
+
+name  is alias page component，like 'first', 'sord'
+
+````
+<pagination :page-data.sync="list" url="/api/getData" name="first"></pagination>
+````
+
+
+#### setParams
+
+##### 参数
+
+* params: Object
+
+* name: String | number
+
+注意这里是replace This's replace not extend, means that pagination will use new options's remote params you give;
+
+params 
+
+````
+{
+	type: 1
+}
+````
+
+name is  alias page component，like 'first', 'sord'
+````
+<pagination :page-data.sync="list" url="/api/getData" name="first"></pagination>
+````
 
 
 ### Todo

@@ -130,7 +130,7 @@ let reset = function(options, name) {
         console.error('没有实例，检查你的参数,后面是所有实例集合', vueObj)
         return;
     }
-    Object.assign(pageInstance.$optionsDefault, options);
+    pageInstance.$optionsDefault = options
     if (pageInstance.url) {
         pageInstance.$optionsDefault.remote.url = pageInstance.url;
     }
@@ -144,7 +144,7 @@ let setParams = function(params, name) {
         console.error('没有实例，检查你的参数,后面是所有实例集合', vueObj)
         return;
     }
-    Object.assign(pageInstance.$optionsDefault.remote.params, params);
+    pageInstance.$optionsDefault.remote.params = params
     pageInstance.pageStart = 1;
     getData.call(pageInstance, pageInstance.pageStart);
 }

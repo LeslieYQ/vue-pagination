@@ -21,8 +21,8 @@ Vue.use(Pagination);
 
 ```
 let page = new Pagination({
+	pageSize: 10,
     remote: {
-        pageSize: 10,
         pageIndexName: 'pageIndex',
         pageSizeName: 'pageSize',
         params: {},
@@ -81,6 +81,56 @@ export default{
 如果是数字，表示的是pagination的顺序。
 
 不传默认使用 0。
+
+#### reset
+
+##### 参数
+
+* options: Object
+
+* name: String | number
+
+注意这里是replace 不是extend，也就是现在的参数会替换初始化的参数。
+
+options 就是初始化传入的参数
+
+````
+{
+	pageSize: 10,
+    remote: {
+        pageIndexName: 'pageIndex',
+        pageSizeName: 'pageSize',
+        params: {},
+        url: '', //
+        totalName: 'total',
+        offset: -1,
+        dataKey: 'data'
+    }
+}
+````
+
+name 就是实例别名
+
+
+#### setParams
+
+##### 参数
+
+* params: Object
+
+* name: String | number
+
+注意这里是replace 不是extend，也就是现在的参数会替换初始化的参数。
+
+params 更改options里面remote的params参数，是跟服务端交互的get参数
+
+````
+{
+	type: 1
+}
+````
+
+name 就是实例别名
 
 
 
