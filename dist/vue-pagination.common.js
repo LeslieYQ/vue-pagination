@@ -71,132 +71,159 @@ babelHelpers.extends = Object.assign || function (target) {
 babelHelpers;
 
 var optionsDefault = {
-	pageSize: 10,
-	remote: {
-		pageIndexName: 'pageIndex',
-		pageSizeName: 'pageSize',
-		params: {},
-		url: '',
-		totalName: 'total',
-		offset: 0
-	},
-	pageSizeItems: [5, 10, 15, 20],
-	showInfo: false,
-	showJump: false,
-	listNumber: 7
+    pageSize: 10,
+    remote: {
+        pageIndexName: 'pageIndex',
+        pageSizeName: 'pageSize',
+        params: {},
+        url: '',
+        totalName: 'total',
+        offset: 0
+    },
+    pageSizeItems: [5, 10, 15, 20],
+    showInfo: false,
+    showJump: false,
+    listNumber: 7
 };
 var vueObj = { length: 0 };
 
 function getData(pageIndex) {
-	var _params,
-	    _this = this;
+    var _params,
+        _this = this;
 
-	var params = (_params = {}, babelHelpers.defineProperty(_params, this.$optionsDefault.remote.pageIndexName, pageIndex + this.$optionsDefault.remote.offset), babelHelpers.defineProperty(_params, this.$optionsDefault.remote.pageSizeName, this.$optionsDefault.pageSize), _params);
-	babelHelpers.extends(params, this.$optionsDefault.remote.params);
-	var ajax = this.$ajax || this.$http;
-	ajax.get(this.$optionsDefault.remote.url, params).then(function (res) {
-		var resData = res.data;
-		_this.pageData = _this.$optionsDefault.remote.dataKey ? resData[_this.$optionsDefault.remote.dataKey] : resData;
-		_this.pageLimit.total = resData[_this.$optionsDefault.remote.totalName];
-		if (_this.pageLimit.total % _this.$optionsDefault.pageSize == 0) {
-			_this.pageLimit.max = Math.floor(_this.pageLimit.total / _this.$optionsDefault.pageSize) || 5;
-		} else {
-			_this.pageLimit.max = Math.floor(_this.pageLimit.total / _this.$optionsDefault.pageSize + 1) || 5;
-		}
-		pageListInit.call(_this, pageIndex);
-	}, function (error) {
-		console.error(error);
-	});
+    var params = (_params = {}, babelHelpers.defineProperty(_params, this.$optionsDefault.remote.pageIndexName, pageIndex + this.$optionsDefault.remote.offset), babelHelpers.defineProperty(_params, this.$optionsDefault.remote.pageSizeName, this.$optionsDefault.pageSize), _params);
+    babelHelpers.extends(params, this.$optionsDefault.remote.params);
+    var ajax = this.$ajax || this.$http;
+    ajax.get(this.$optionsDefault.remote.url, params).then(function (res) {
+        var resData = res.data;
+        _this.pageData = _this.$optionsDefault.remote.dataKey ? resData[_this.$optionsDefault.remote.dataKey] : resData;
+        _this.pageLimit.total = resData[_this.$optionsDefault.remote.totalName];
+        if (_this.pageLimit.total % _this.$optionsDefault.pageSize == 0) {
+            _this.pageLimit.max = Math.floor(_this.pageLimit.total / _this.$optionsDefault.pageSize) || 5;
+        } else {
+            _this.pageLimit.max = Math.floor(_this.pageLimit.total / _this.$optionsDefault.pageSize + 1) || 5;
+        }
+        pageListInit.call(_this, pageIndex);
+    }, function (error) {
+        console.error(error);
+    });
 };
 
 function pageListInit(now) {
-	var arr = [];
-	for (var i = 1; i <= this.pageLimit.max; i++) {
-		arr.push(i);
-	}
-	if (now < this.$optionsDefault.listNumber) {
-		this.pageList = arr.slice(0, 9);
-	} else if (now > this.pageLimit.max - optionsDefault.listNumber + 1) {
-		this.pageList = arr.slice(-9);
-	} else {
-		var start = now - 1 - Math.floor(optionsDefault.listNumber / 2);
-		this.pageList = arr.slice(start, start + optionsDefault.listNumber);
-	}
+    var arr = [];
+    for (var i = 1; i <= this.pageLimit.max; i++) {
+        arr.push(i);
+    }
+    if (now < this.$optionsDefault.listNumber) {
+        this.pageList = arr.slice(0, 9);
+    } else if (now > this.pageLimit.max - optionsDefault.listNumber + 1) {
+        this.pageList = arr.slice(-9);
+    } else {
+        var start = now - 1 - Math.floor(optionsDefault.listNumber / 2);
+        this.pageList = arr.slice(start, start + optionsDefault.listNumber);
+    }
 };
 
 var pagination = {
-	replace: true,
-	inherit: false,
-	props: ['pageData', 'url', 'name'],
-	template: '<div class="lj-pagination"><div class="lj-info" v-if="showInfo"></div><div class="lj-jump" v-if="showJump"><input type="text" v-model="pageJump"/><span>search</span></div>' + '<ul class="lj-page" v-if="showList"><li @click="first" v-show="pageStart != 1"><span>first</span></li><li @click="prev" v-show="pageStart != 1" class="button"><span>Prev</span></li><li :class="{\'active\': el == pageStart}" @click="pagePath(el)" v-for="el in pageList"><span>{{el}}</span></li>' + '<li @click="next" v-show="pageStart != pageLimit.max" class="button"><span>Next</span></li><li @click="last" v-show="pageStart != pageLimit.max"><span>Last</span></li></ul></div>',
-	data: function data() {
-		return {
-			showJump: false,
-			showInfo: false,
-			pageJump: '',
-			pageList: [1],
-			pageStart: 1,
-			showList: true,
-			pageLimit: {
-				min: 1,
-				max: 10,
-				total: 1
-			}
-		};
-	},
-	ready: function ready() {
-		this.$optionsDefault = {};
-		babelHelpers.extends(this.$optionsDefault, optionsDefault, this.$ajaxOptionsDefault);
-		if (this.url) {
-			this.$optionsDefault.remote.url = this.url;
-		}
-		if (this.name) {
-			vueObj[this.name] = this;
-			vueObj.length++;
-		} else {
-			vueObj[vueObj.length] = this;
-			vueObj.length++;
-		}
-		getData.call(this, 1, 10);
-	},
+    replace: true,
+    inherit: false,
+    props: ['pageData', 'url', 'name'],
+    template: '<div class="lj-pagination"><div class="lj-info" v-if="showInfo"></div><div class="lj-jump" v-if="showJump"><input type="text" v-model="pageJump"/><span>search</span></div>' + '<ul class="lj-page" v-if="showList"><li @click="first" v-show="pageStart != 1"><span>first</span></li><li @click="prev" v-show="pageStart != 1" class="button"><span>Prev</span></li><li :class="{\'active\': el == pageStart}" @click="pagePath(el)" v-for="el in pageList"><span>{{el}}</span></li>' + '<li @click="next" v-show="pageStart != pageLimit.max" class="button"><span>Next</span></li><li @click="last" v-show="pageStart != pageLimit.max"><span>Last</span></li></ul></div>',
+    data: function data() {
+        return {
+            showJump: false,
+            showInfo: false,
+            pageJump: '',
+            pageList: [1],
+            pageStart: 1,
+            showList: true,
+            pageLimit: {
+                min: 1,
+                max: 10,
+                total: 1
+            }
+        };
+    },
+    ready: function ready() {
+        this.$optionsDefault = {};
+        babelHelpers.extends(this.$optionsDefault, optionsDefault, this.$ajaxOptionsDefault);
+        if (this.url) {
+            this.$optionsDefault.remote.url = this.url;
+        }
+        if (this.name) {
+            vueObj[this.name] = this;
+            vueObj.length++;
+        } else {
+            vueObj[vueObj.length] = this;
+            vueObj.length++;
+        }
+        getData.call(this, 1, 10);
+    },
 
-	methods: {
-		pagePath: function pagePath(pageNumber) {
-			this.pageStart = pageNumber;
-			getData.call(this, this.pageStart);
-		},
-		first: function first() {
-			this.pageStart = 1;
-			getData.call(this, this.pageStart);
-		},
-		last: function last() {
-			this.pageStart = this.pageLimit.max;
-			getData.call(this, this.pageStart);
-		},
-		prev: function prev() {
-			this.pageStart > this.pageLimit.min ? this.pageStart-- : this.pageStart = 1;
-			getData.call(this, this.pageStart);
-		},
-		next: function next() {
-			this.pageStart < this.pageLimit.max ? this.pageStart++ : this.pageStart = this.max;
-			getData.call(this, this.pageStart, optionsDefault.pageSize);
-		}
-	}
+    methods: {
+        pagePath: function pagePath(pageNumber) {
+            this.pageStart = pageNumber;
+            getData.call(this, this.pageStart);
+        },
+        first: function first() {
+            this.pageStart = 1;
+            getData.call(this, this.pageStart);
+        },
+        last: function last() {
+            this.pageStart = this.pageLimit.max;
+            getData.call(this, this.pageStart);
+        },
+        prev: function prev() {
+            this.pageStart > this.pageLimit.min ? this.pageStart-- : this.pageStart = 1;
+            getData.call(this, this.pageStart);
+        },
+        next: function next() {
+            this.pageStart < this.pageLimit.max ? this.pageStart++ : this.pageStart = this.max;
+            getData.call(this, this.pageStart, optionsDefault.pageSize);
+        }
+    }
 };
 
 var restart = function restart(name) {
-	var pageInstance = vueObj[name];
-	if (!pageInstance) {
-		console.error('没有实例，检查你的参数,后面是所有实例集合', vueObj);
-		return;
-	}
-	pageInstance.pageStart = 1;
-	getData.call(pageInstance, pageInstance.pageStart);
+    var pageInstance = vueObj[name];
+    if (!pageInstance) {
+        console.error('没有实例，检查你的参数,后面是所有实例集合', vueObj);
+        return;
+    }
+    pageInstance.pageStart = 1;
+    getData.call(pageInstance, pageInstance.pageStart);
+};
+
+var reset = function reset(options, name) {
+    var pageInstance = vueObj[name];
+    if (!pageInstance) {
+        console.error('没有实例，检查你的参数,后面是所有实例集合', vueObj);
+        return;
+    }
+    pageInstance.$optionsDefault = options;
+    if (pageInstance.url) {
+        pageInstance.$optionsDefault.remote.url = pageInstance.url;
+    }
+    pageInstance.pageStart = 1;
+    getData.call(pageInstance, pageInstance.pageStart);
+};
+
+var setParams = function setParams(params, name) {
+    var pageInstance = vueObj[name];
+    if (!pageInstance) {
+        console.error('没有实例，检查你的参数,后面是所有实例集合', vueObj);
+        return;
+    }
+    pageInstance.$optionsDefault.remote.params = params;
+    pageInstance.pageStart = 1;
+    getData.call(pageInstance, pageInstance.pageStart);
 };
 
 var Page = {
-	pagination: pagination,
-	restart: restart
+    pagination: pagination,
+    restart: restart,
+    setParams: setParams,
+    reset: reset
 };
 
 __$styleInject(".lj-pagination{\n\tmargin: 10px 0;\n\tcolor: #282F31;\n}\n\n.lj-page{\n\tmargin: 0;\n\tpadding: 0;\n\tborder: 1px solid #e6e6e6;\n\tborder-radius: 3px;\n\tdisplay: inline-block;\n}\n\n.lj-page:after{\n\tcontent: \" \";\n\tdisplay: table;\n\tclear: both;\n}\n\n\n.lj-page li{\n\tfloat: left;\n\tborder-right: 1px solid #e6e6e6;\n\tdisplay: inline-block;\n\tcursor: pointer;\n}\n\n.lj-page li:last-of-type{\n\tborder-right: none;\n}\n\n.lj-page li:hover{\n\tbackground: #00cff5;\n\tcolor:  white;\n}\n\n.lj-page li.active{\n\tbackground: #00cff5;\n\tcolor:  white;\n}\n\n.lj-page li span{\n\tpadding: 1em;\n\tdisplay: inline-block;\n}");
@@ -251,7 +278,14 @@ var Pagination = function () {
 		value: function reset(options) {
 			var name = arguments.length <= 1 || arguments[1] === undefined ? 0 : arguments[1];
 
-			Page.reset(options);
+			Page.reset(options, name);
+		}
+	}, {
+		key: 'setParams',
+		value: function setParams(params) {
+			var name = arguments.length <= 1 || arguments[1] === undefined ? 0 : arguments[1];
+
+			Page.setParams(params, name);
 		}
 	}]);
 	return Pagination;
